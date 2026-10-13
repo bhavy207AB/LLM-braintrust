@@ -1,0 +1,23 @@
+{
+  "name": "llm-braintrust",
+  "version": "1.0.0",
+  "description": "LLM evals and tracing with Braintrust + Claude",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "eval": "braintrust eval src",
+    "trace": "tsx src/logging.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.133.0",
+    "autoevals": "^0.4.0",
+    "braintrust": "^3.37.2",
+    "dotenv": "^17.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.3.0",
+    "tsx": "^4.20.0",
+    "typescript": "^5.9.0"
+  }
+}
