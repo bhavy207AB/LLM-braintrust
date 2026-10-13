@@ -12,14 +12,18 @@ Evals and tracing for LLM apps using [Braintrust](https://www.braintrust.dev) wi
 
 ## Setup
 
+Model calls go through the [Braintrust AI proxy](https://www.braintrust.dev/docs/guides/proxy): you authenticate with your Braintrust key, and Braintrust holds the Anthropic key. So you only need **one** key locally.
+
 ```bash
 npm install
-cp .env.example .env   # then fill in BRAINTRUST_API_KEY and ANTHROPIC_API_KEY
 ```
 
-Get keys:
-- Braintrust: https://www.braintrust.dev/app/settings/api-keys
-- Anthropic: https://console.anthropic.com/settings/keys
+1. **Braintrust key** — run the onboarding wizard (writes `.env.braintrust`, which is gitignored):
+   ```bash
+   npx braintrust login
+   ```
+   or copy `.env.example` to `.env` and paste a key from https://www.braintrust.dev/app/settings/api-keys.
+2. **Anthropic provider key** — in the Braintrust app, go to **Settings → AI Providers** and add your Anthropic API key. The proxy needs this to call Claude; without it, model evals return `No provider found`.
 
 ## Run
 

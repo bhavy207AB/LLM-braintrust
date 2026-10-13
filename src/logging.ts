@@ -1,4 +1,4 @@
-import "dotenv/config";
+import "./env";
 import { initLogger, wrapTraced } from "braintrust";
 import { anthropic, firstText, MODEL } from "./client";
 

@@ -1,4 +1,4 @@
-import "dotenv/config";
+import "./env";
 import { Eval } from "braintrust";
 import { Levenshtein } from "autoevals";
 import { anthropic, firstText, MODEL } from "./client";
