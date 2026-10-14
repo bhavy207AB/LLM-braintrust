@@ -7,6 +7,8 @@ import { gemini, firstText, MODEL } from "./client";
 // The wrapped OpenAI client records each model call as a span under the trace.
 Eval("LLM-braintrust", {
   experimentName: "capitals-qa",
+  // Serialize requests to stay under the Gemini free-tier 5 req/min limit.
+  maxConcurrency: 1,
   data: () => [
     { input: "What is the capital of France?", expected: "Paris" },
     { input: "What is the capital of Japan?", expected: "Tokyo" },
