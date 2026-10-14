@@ -1,6 +1,6 @@
 import "./env";
 import { initLogger, wrapTraced } from "braintrust";
-import { anthropic, firstText, MODEL } from "./client";
+import { grok, firstText, MODEL } from "./client";
 
 // Online logging: send production traces to Braintrust (vs. offline Evals).
 // Spans show up in the project's "Logs" tab.
@@ -8,7 +8,7 @@ initLogger({ projectName: "LLM-braintrust" });
 
 const answerQuestion = wrapTraced(
   async function answerQuestion(question: string): Promise<string> {
-    const response = await anthropic.messages.create({
+    const response = await grok.chat.completions.create({
       model: MODEL,
       max_tokens: 256,
       messages: [{ role: "user", content: question }],

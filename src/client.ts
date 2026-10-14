@@ -1,22 +1,23 @@
 import "./env";
-import Anthropic from "@anthropic-ai/sdk";
-import { wrapAnthropic } from "braintrust";
+import OpenAI from "openai";
+import { wrapOpenAI } from "braintrust";
 
-// Default to the latest, most capable Claude model.
-export const MODEL = "claude-opus-4-8";
+// Grok model (xAI). Swap for grok-3 / grok-3-mini for cheaper/faster runs.
+export const MODEL = "grok-4";
 
-// Route Claude calls through the Braintrust AI proxy: authenticate with the
-// Braintrust key and let Braintrust hold the Anthropic provider key (configured
-// under Settings → AI Providers). wrapAnthropic traces every call as a span.
-export const anthropic = wrapAnthropic(
-  new Anthropic({
-    baseURL: "https://api.braintrust.dev/v1/proxy/anthropic",
-    apiKey: process.env.BRAINTRUST_API_KEY,
+// xAI speaks the OpenAI API, so we use the OpenAI SDK pointed at xAI directly.
+// XAI_API_KEY lives in .env (gitignored); wrapOpenAI records every call as a
+// Braintrust span (traces still flow to Braintrust via BRAINTRUST_API_KEY).
+export const grok = wrapOpenAI(
+  new OpenAI({
+    baseURL: "https://api.x.ai/v1",
+    apiKey: process.env.XAI_API_KEY,
   }),
 );
 
-/** Extract the first text block from a Messages API response. */
-export function firstText(response: Anthropic.Message): string {
-  const block = response.content.find((b) => b.type === "text");
-  return block && block.type === "text" ? block.text : "";
+/** Extract the assistant text from a chat completion. */
+export function firstText(
+  response: OpenAI.Chat.Completions.ChatCompletion,
+): string {
+  return response.choices[0]?.message?.content ?? "";
 }

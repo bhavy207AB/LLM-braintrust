@@ -10,10 +10,10 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.133.0",
     "autoevals": "^0.4.0",
     "braintrust": "^3.37.2",
-    "dotenv": "^17.2.0"
+    "dotenv": "^17.2.0",
+    "openai": "^7.32.0"
   },
   "devDependencies": {
     "@types/node": "^24.3.0",
