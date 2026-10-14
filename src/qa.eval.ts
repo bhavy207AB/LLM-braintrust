@@ -1,9 +1,9 @@
 import "./env";
 import { Eval } from "braintrust";
 import { Levenshtein } from "autoevals";
-import { grok, firstText, MODEL } from "./client";
+import { gemini, firstText, MODEL } from "./client";
 
-// A real Eval: Grok answers each question, scored against the expected answer.
+// A real Eval: Gemini answers each question, scored against the expected answer.
 // The wrapped OpenAI client records each model call as a span under the trace.
 Eval("LLM-braintrust", {
   experimentName: "capitals-qa",
@@ -13,7 +13,7 @@ Eval("LLM-braintrust", {
     { input: "What is the capital of Italy?", expected: "Rome" },
   ],
   task: async (input: string) => {
-    const response = await grok.chat.completions.create({
+    const response = await gemini.chat.completions.create({
       model: MODEL,
       max_tokens: 64,
       messages: [

@@ -2,16 +2,16 @@ import "./env";
 import OpenAI from "openai";
 import { wrapOpenAI } from "braintrust";
 
-// Grok model (xAI). Swap for grok-3 / grok-3-mini for cheaper/faster runs.
-export const MODEL = "grok-4";
+// Gemini model. Swap for gemini-2.5-pro (smarter) or gemini-2.0-flash (cheaper).
+export const MODEL = "gemini-2.5-flash";
 
-// xAI speaks the OpenAI API, so we use the OpenAI SDK pointed at xAI directly.
-// XAI_API_KEY lives in .env (gitignored); wrapOpenAI records every call as a
-// Braintrust span (traces still flow to Braintrust via BRAINTRUST_API_KEY).
-export const grok = wrapOpenAI(
+// Gemini exposes an OpenAI-compatible endpoint, so we use the OpenAI SDK.
+// GEMINI_API_KEY lives in .env (gitignored); wrapOpenAI records every call as a
+// Braintrust span (traces flow to Braintrust via BRAINTRUST_API_KEY).
+export const gemini = wrapOpenAI(
   new OpenAI({
-    baseURL: "https://api.x.ai/v1",
-    apiKey: process.env.XAI_API_KEY,
+    baseURL: "https://generativelanguage.googleapis.com/v1beta/openai/",
+    apiKey: process.env.GEMINI_API_KEY,
   }),
 );
 
